@@ -10,10 +10,11 @@ export default function App() {
 }
 
 function Layout(props) {
+  const appName = import.meta.env.VITE_APP_NAME;
   return(
     <>
     <div class="p-4 flex flex-col gap-4">
-      <div>Zaglavlje</div>
+      <div>{appName}</div>
       {props.children}
       <div>Podnožje</div>
     </div>
