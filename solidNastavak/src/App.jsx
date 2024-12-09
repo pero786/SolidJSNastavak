@@ -1,11 +1,14 @@
 import { Router, Route } from "@solidjs/router";
 import Home from "./pages/home";
+import { AuthProvider } from "./components/AuthProvider";
 
 export default function App() {
   return (
+    <AuthProvider>
     <Router root={Layout}>
       <Route path="/" component={Home}/>
     </Router>
+    </AuthProvider>
   );
 }
 
