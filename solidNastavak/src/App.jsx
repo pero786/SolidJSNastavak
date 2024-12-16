@@ -1,5 +1,8 @@
 import { Router, Route } from "@solidjs/router";
 import Home from "./pages/home";
+import SignIn from "./pages/SignIn";
+import SignOut from "./pages/SignOut";
+import { A } from "@solidjs/router";
 import { AuthProvider } from "./components/AuthProvider";
 
 export default function App() {
@@ -7,6 +10,8 @@ export default function App() {
     <AuthProvider>
     <Router root={Layout}>
       <Route path="/" component={Home}/>
+      <Route path="/SignIn" component={SignIn}/>
+      <Route path="/SignOut" component={SignOut}/>
     </Router>
     </AuthProvider>
   );
@@ -19,6 +24,11 @@ function Layout(props) {
     <div class="p-4 flex flex-col gap-4">
       <div>
       <div class="text-4xl text-neutral-500 uppercase">{appName}</div>
+      <div class="flex gap-2">
+        <A href="/" class="bg-orange-400 p-2 rounded hover:bg-red-300">Naslovnica</A>
+        <A href="signin" class="bg-orange-400 p-2 rounded hover:bg-red-300"> Prijava</A>
+        <A href="signout" class="bg-orange-400 p-2 rounded hover:bg-red-300">Odjava</A>
+      </div>
       </div>
       <div class="min-h-[75vh] w-10/12 mx-auto">
       {props.children}

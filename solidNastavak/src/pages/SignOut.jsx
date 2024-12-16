@@ -1,7 +1,7 @@
 import { createSignal, onMount, Show } from "solid-js";
 import { supabase } from "../services/supabase";
 export default function SignOut(){
-    const [result, serResult] = createSignal(null);
+    const [result, setResult] = createSignal(null);
 
     onMount(async () => {
         const result = supabase.auth.signOut();
