@@ -50,7 +50,7 @@ export default function Projects(props){
             </div>
             
             <div class="p-2 flex flex-col gap-1">
-                <input type="text " value="Pošalji" class="bg-slate-600 text-white p-2 rounded"/>
+                <input type="submit" value="Pošalji" class="bg-slate-600 text-white p-2 rounded"/>
             </div>
 
         </form>
