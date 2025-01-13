@@ -30,9 +30,6 @@ export default function Projects(props){
             event.target.reset();
         }
     }
-
-
-
     return(
         <>
         <Show when={success()}>
