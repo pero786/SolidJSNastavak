@@ -46,6 +46,7 @@ export default function Home(props) {
                 <For each={projects()} fallback={<div>Nema projekata.</div>}>
                     {(item) => <div class="flex flex-col gap-2 items-end bg-blue-400 text-white p-2 rounded mb-5">
                         <div class="place-self-start text-xl">{item.name}</div>
+                        <div class="place-self-start line-clamp-2">{item.description}</div>
                         <A href={`/tasks/${item.id}`} class="bg-white text-blue-400 p-2 rounded text-sm">
                             Prikaži
                         </A>
