@@ -6,6 +6,7 @@ import { A } from "@solidjs/router";
 import { AuthProvider , useAuth } from "./components/AuthProvider";
 import { Show } from "solid-js";
 import Projects from "./pages/projects";
+import Tasks from "./pages/Tasks";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/SignIn" component={SignIn}/>
       <Route path="/SignOut" component={SignOut}/>
       <Route path="/projects" component={Projects}/>
+      <Route path="/tasks/:id" component={Tasks} />
     </Router>
     </AuthProvider>
   );

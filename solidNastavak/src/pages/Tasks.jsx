@@ -9,6 +9,7 @@ export default function Tasks(props) {
     const [project, setProject] = createSignal(null);
     const [isOwner, setOwner] = createSignal(false);
     const [tasks, setTasks] = createSignal([]);
+    
     onMount(async () => {
         const { data, error } = await supabase
             .from("projects")
@@ -69,7 +70,7 @@ export default function Tasks(props) {
     }
     return (
         <>
-                    <Show when={project()}>
+            <Show when={project()}>
                 <div class="text-xl font-bold">Dobro došli na projekt: {project().name}</div>
                 <Show when={isOwner()}>
                     <div>Vi ste vlasnik projekta, možete dodavati zadatke.</div>
@@ -85,9 +86,9 @@ export default function Tasks(props) {
                 </Show>
                 <For each={tasks()} fallback={<div>Nema zadataka.</div>}>
                     {(item) => <div class="flex flex-col gap-2 items-end bg-blue-400 text-white p-2 rounded mb-5">
-                        
+
                         <div class="place-self-start text-xl">{item.name}</div>
-                        
+
                         <Show when={item.owner_id}>
                             <div>Zadatak preuzet</div>
                         </Show>
@@ -96,7 +97,7 @@ export default function Tasks(props) {
                                 Preuzmi
                             </button>
                         </Show>
-                        
+
                         <Show when={item.done === false && item.owner_id === session().user.id}>
                             <button onClick={() => markDone(item.id)} class="bg-white text-blue-400 p-2 rounded text-sm">
                                 Završi
