@@ -9,6 +9,12 @@ export default function Tasks(props) {
     const [project, setProject] = createSignal(null);
     const [isOwner, setOwner] = createSignal(false);
     const [tasks, setTasks] = createSignal([]);
+    const [descriptionVisible, setDescriptionVisible] = createSignal(false);
+
+    function toggleDescription(){
+        setDescriptionVisible(old =>!old);
+    }
+
 
     onMount(async () => {
         const { data, error } = await supabase
@@ -96,6 +102,12 @@ export default function Tasks(props) {
                             <input type="submit" value="Pošalji" class="bg-slate-600 text-white p-2 rounded" />
                         </div>
                     </form>
+                </Show>
+                <div>
+                    <button class="bg-orange-500 text-white p-2 rounded text-sm mb-2" onClick={() => toggleDescription()}> Prikaži/sakrij opis</button>
+                </div>
+                <Show when={descriptionVisible}> 
+                    <div class="mb-4">{project().description}</div>
                 </Show>
                 <For each={tasks()} fallback={<div>Nema zadataka.</div>}>
                     {(item) => <div class="flex flex-col gap-2 items-end bg-blue-400 text-white p-2 rounded mb-5">
