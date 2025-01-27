@@ -9,7 +9,7 @@ export default function Tasks(props) {
     const [project, setProject] = createSignal(null);
     const [isOwner, setOwner] = createSignal(false);
     const [tasks, setTasks] = createSignal([]);
-    
+
     onMount(async () => {
         const { data, error } = await supabase
             .from("projects")
@@ -68,6 +68,19 @@ export default function Tasks(props) {
             loadTasks();
         }
     }
+
+    async function deleteTask(taskId) {
+        
+        const { error } = await supabase
+            .from("tasks")
+            .delete()
+            .eq("id", taskId);
+        if (error) {
+            alert("Operacija nije uspjela.");
+        } else {
+            loadTasks();
+        }
+    }
     return (
         <>
             <Show when={project()}>
@@ -89,12 +102,20 @@ export default function Tasks(props) {
 
                         <div class="place-self-start text-xl">{item.name}</div>
 
-                        <Show when={item.owner_id}>
+                        <Show when={item.owner_id && item.owner_id !== session().user.id}>
                             <div>Zadatak preuzet</div>
+                        </Show>
+                        <Show when={item.owner_id && item.owner_id === session().user.id}>
+                            <div>Vi ste ovo preuzeli</div>
                         </Show>
                         <Show when={!item.owner_id}>
                             <button onClick={() => takeOwnership(item.id)} class="bg-white text-blue-400 p-2 rounded text-sm">
                                 Preuzmi
+                            </button>
+                        </Show>
+                        <Show when={isOwner() && item.done !== true}>
+                            <button onClick={() => deleteTask(item.id)} class="bg-white text-red-400 p-2 rounded text-sm">
+                                Obriši
                             </button>
                         </Show>
 

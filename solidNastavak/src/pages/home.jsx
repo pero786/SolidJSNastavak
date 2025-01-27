@@ -9,17 +9,33 @@ export default function Home(props) {
     const [projects, setProjects] = createSignal(null);
 
     createEffect (async() => {
+        await loadProjects();
+    });
+
+    async function loadProjects() {
         if (session()) {
             const {data,error } = await supabase
             .from("projects")
-            .select();
+            .select("*, tasks(count)");
 
             if (!error) {
                 setProjects(data);
             }
 
         }
-    });
+        
+    }
+    async function deleteProject(projectId) {
+        const { error } = await supabase
+            .from("projects")
+            .delete()
+            .eq("id", projectId);
+        if (error) {
+            alert("Operacija nije uspjela.");
+        } else {
+            await loadProjects();
+        }
+    }
 
     return (
         <>
@@ -33,6 +49,10 @@ export default function Home(props) {
                         <A href={`/tasks/${item.id}`} class="bg-white text-blue-400 p-2 rounded text-sm">
                             Prikaži
                         </A>
+                        <Show when={item.tasks[0].count === 0}>
+                        <button class="bg-white text-red-400 p-2 rounded text-sm" onClick={() => deleteProject( item.id)}>Briši</button>
+                        </Show>
+                        
                     </div>}
                 </For>
             </Show>
