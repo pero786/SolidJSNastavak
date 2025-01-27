@@ -106,7 +106,7 @@ export default function Tasks(props) {
                 <div>
                     <button class="bg-orange-500 text-white p-2 rounded text-sm mb-2" onClick={() => toggleDescription()}> Prikaži/sakrij opis</button>
                 </div>
-                <Show when={descriptionVisible}> 
+                <Show when={descriptionVisible()}> 
                     <div class="mb-4">{project().description}</div>
                 </Show>
                 <For each={tasks()} fallback={<div>Nema zadataka.</div>}>
