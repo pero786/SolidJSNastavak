@@ -18,7 +18,7 @@ export default function Tasks(props) {
         if (error) return;
         setProject(data[0]);
         if (session().user.id === project().author_id) setOwner(true);
-        loadTasks();
+        await loadTasks();
     });
     async function formSubmit(event) {
         event.preventDefault();
@@ -34,7 +34,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Spremanje nije uspjelo.");
         } else {
-            loadTasks();
+            await loadTasks();
             event.target.reset();
         }
     }
@@ -54,7 +54,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Operacija nije uspjela.");
         } else {
-            loadTasks();
+            await loadTasks();
         }
     }
     async function markDone(taskId) {
@@ -65,7 +65,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Operacija nije uspjela.");
         } else {
-            loadTasks();
+            await loadTasks();
         }
     }
 
@@ -78,7 +78,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Operacija nije uspjela.");
         } else {
-            loadTasks();
+            await loadTasks();
         }
     }
     return (
